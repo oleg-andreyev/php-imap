@@ -727,7 +727,11 @@ final class Imap
      */
     public static function ping($imap_stream): bool
     {
-        return (\is_resource($imap_stream) || $imap_stream instanceof \IMAP\Connection) && \imap_ping($imap_stream);
+        return (
+            \is_resource($imap_stream)
+            || $imap_stream instanceof \IMAP\Connection
+            || $imap_stream instanceof \Javanile\Imap2\Connection
+        ) && \imap_ping($imap_stream);
     }
 
     /**
@@ -1097,7 +1101,13 @@ final class Imap
      */
     private static function EnsureResource($maybe, string $method, int $argument)
     {
-        if (!$maybe || (!\is_resource($maybe) && !$maybe instanceof \IMAP\Connection)) {
+        if (
+            !$maybe
+            || (
+                !\is_resource($maybe)
+                && !$maybe instanceof \IMAP\Connection
+                && !$maybe instanceof \Javanile\Imap2\Connection
+            )) {
             throw new InvalidArgumentException('Argument '.(string) $argument.' passed to '.$method.' must be a valid resource!');
         }
 
