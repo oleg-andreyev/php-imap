@@ -10,7 +10,9 @@ use Generator;
 use ParagonIE\HiddenString\HiddenString;
 use PhpImap\Exceptions\ConnectionException;
 use PHPUnit\Framework\TestCase as Base;
+
 use const SORTARRIVAL;
+
 use Throwable;
 
 /**

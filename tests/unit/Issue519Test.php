@@ -12,7 +12,9 @@ namespace PhpImap;
 
 use const ENC8BIT;
 use const ENCBASE64;
+
 use PHPUnit\Framework\TestCase;
+
 use const TYPEIMAGE;
 
 class Issue519Test extends TestCase

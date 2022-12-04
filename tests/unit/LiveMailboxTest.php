@@ -11,11 +11,16 @@ declare(strict_types=1);
 namespace PhpImap;
 
 use function date;
+
 use const ENCBASE64;
+
 use Generator;
 use ParagonIE\HiddenString\HiddenString;
+
 use const SORTARRIVAL;
+
 use Throwable;
+
 use const TYPEAPPLICATION;
 use const TYPEMULTIPART;
 use const TYPETEXT;
@@ -157,13 +162,12 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                     'contents.data' => 'test',
                 ],
             ],
-            (
+
                 'Subject: '.$random_subject."\r\n".
                 'MIME-Version: 1.0'."\r\n".
                 'Content-Type: TEXT/PLAIN; CHARSET=US-ASCII'."\r\n".
                 "\r\n".
-                'test'."\r\n"
-            ),
+                'test'."\r\n",
         ];
 
         $random_subject = 'barbushin/php-imap#448: dot first:'.\bin2hex(\random_bytes(16));
@@ -184,7 +188,7 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                     ),
                 ],
             ],
-            (
+
                 'Subject: '.$random_subject."\r\n".
                 'MIME-Version: 1.0'."\r\n".
                 'Content-Type: APPLICATION/octet-stream; name=.gitignore'."\r\n".
@@ -194,8 +198,7 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                 "\r\n".
                 \base64_encode(
                     \file_get_contents(__DIR__.'/../../.gitignore')
-                )."\r\n"
-            ),
+                )."\r\n",
         ];
 
         $random_subject = 'barbushin/php-imap#448: dot last: '.\bin2hex(\random_bytes(16));
@@ -216,7 +219,7 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                     ),
                 ],
             ],
-            (
+
                 'Subject: '.$random_subject."\r\n".
                 'MIME-Version: 1.0'."\r\n".
                 'Content-Type: APPLICATION/octet-stream; name=gitignore.'."\r\n".
@@ -226,8 +229,7 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                 "\r\n".
                 \base64_encode(
                     \file_get_contents(__DIR__.'/../../.gitignore')
-                )."\r\n"
-            ),
+                )."\r\n",
         ];
 
         $random_subject = 'barbushin/php-imap#391: '.\bin2hex(\random_bytes(16));
@@ -266,7 +268,7 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                     'contents.data' => $random_attachment_b,
                 ],
             ],
-            (
+
                 'Subject: '.$random_subject."\r\n".
                 'MIME-Version: 1.0'."\r\n".
                 'Content-Type: MULTIPART/MIXED; BOUNDARY="{{REPLACE_BOUNDARY_HERE}}"'."\r\n".
@@ -289,8 +291,7 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
                 'Content-Disposition: attachment; filename=foo.bin'."\r\n".
                 "\r\n".
                 $random_attachment_b."\r\n".
-                '--{{REPLACE_BOUNDARY_HERE}}--'."\r\n"
-            ),
+                '--{{REPLACE_BOUNDARY_HERE}}--'."\r\n",
         ];
     }
 
@@ -355,11 +356,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             0,
             $search,
-            (
+
                 'If a subject was found,'.
                 ' then the message is insufficiently unique to assert that'.
                 ' a newly-appended message was actually created.'
-            )
         );
 
         $mailbox->appendMessageToMailbox($message);
@@ -369,21 +369,19 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             1,
             $search,
-            (
+
                 'If a subject was not found, '.
                 ' then Mailbox::appendMessageToMailbox() failed'.
                 ' despite not throwing an exception.'
-            )
         );
 
         $this->assertSame(
             $count + 1,
             $mailbox->countMails(),
-            (
+
                 'If the message count did not increase'.
                 ' then either the message was not appended,'.
                 ' or a mesage was removed while the test was running.'
-            )
         );
 
         $mailbox->deleteMail($search[0]);
@@ -396,10 +394,9 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             0,
             $mailbox->searchMailbox($search_criteria),
-            (
+
                 'If a subject was found,'.
                 ' then the message is was not expunged as requested.'
-            )
         );
     }
 
@@ -442,11 +439,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             0,
             $search,
-            (
+
                 'If a subject was found,'.
                 ' then the message is insufficiently unique to assert that'.
                 ' a newly-appended message was actually created.'
-            )
         );
 
         $mailbox->appendMessageToMailbox($message);
@@ -456,11 +452,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             1,
             $search,
-            (
+
                 'If a subject was not found, '.
                 ' then Mailbox::appendMessageToMailbox() failed'.
                 ' despite not throwing an exception.'
-            )
         );
 
         $this->assertSame(
@@ -494,10 +489,9 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             0,
             $mailbox->searchMailbox($search_criteria),
-            (
+
                 'If a subject was found,'.
                 ' then the message is was not expunged as requested.'
-            )
         );
     }
 
@@ -540,11 +534,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             0,
             $search,
-            (
+
                 'If a subject was found,'.
                 ' then the message is insufficiently unique to assert that'.
                 ' a newly-appended message was actually created.'
-            )
         );
 
         $mailbox->appendMessageToMailbox($message);
@@ -554,11 +547,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             1,
             $search,
-            (
+
                 'If a subject was not found, '.
                 ' then Mailbox::appendMessageToMailbox() failed'.
                 ' despite not throwing an exception.'
-            )
         );
 
         $actual_result = $mailbox->getMailMboxFormat($search[0]);
@@ -586,11 +578,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertSame(
             $search_subject,
             $mail->subject,
-            (
+
                 'If a retrieved mail did not have a matching subject'.
                 ' despite being found via search,'.
                 ' then something has gone wrong.'
-            )
         );
 
         $info = $mailbox->getMailsInfo($search);
@@ -600,11 +591,10 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertSame(
             $search_subject,
             $info[0]->subject,
-            (
+
                 'If a retrieved mail did not have a matching subject'.
                 ' despite being found via search,'.
                 ' then something has gone wrong.'
-            )
         );
 
         if (1 === \preg_match(
@@ -639,10 +629,9 @@ class LiveMailboxTest extends AbstractLiveMailboxTest
         $this->assertCount(
             0,
             $mailbox->searchMailbox($search_criteria),
-            (
+
                 'If a subject was found,'.
                 ' then the message is was not expunged as requested.'
-            )
         );
     }
 

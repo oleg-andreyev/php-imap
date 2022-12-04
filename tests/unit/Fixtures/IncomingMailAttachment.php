@@ -6,6 +6,7 @@ namespace PhpImap\Fixtures;
 
 use const FILEINFO_MIME_TYPE;
 use const FILEINFO_NONE;
+
 use PhpImap\IncomingMailAttachment as Base;
 
 class IncomingMailAttachment extends Base

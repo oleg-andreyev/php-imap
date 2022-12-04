@@ -117,11 +117,10 @@ abstract class AbstractLiveMailboxTest extends TestCase
             $this->assertCount(
                 0,
                 $search,
-                (
+
                     'If a subject was found,'.
                     ' then the message is insufficiently unique to assert that'.
                     ' a newly-appended message was actually created.'
-                )
             );
 
             $message = [$envelope, $body];
@@ -137,11 +136,10 @@ abstract class AbstractLiveMailboxTest extends TestCase
             $this->assertCount(
                 1,
                 $search,
-                (
+
                     'If a subject was not found, '.
                     ' then Mailbox::appendMessageToMailbox() failed'.
                     ' despite not throwing an exception.'
-                )
             );
 
             $mailbox->deleteMail($search[0]);
@@ -155,10 +153,9 @@ abstract class AbstractLiveMailboxTest extends TestCase
             $this->assertCount(
                 0,
                 $mailbox->searchMailbox($search_criteria),
-                (
+
                     'If a subject was found,'.
                     ' then the message is was not expunged as requested.'
-                )
             );
         } catch (Throwable $ex) {
             $exception = $ex;

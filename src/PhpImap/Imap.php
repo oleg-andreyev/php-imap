@@ -12,10 +12,14 @@ use const IMAP_CLOSETIMEOUT;
 use const IMAP_OPENTIMEOUT;
 use const IMAP_READTIMEOUT;
 use const IMAP_WRITETIMEOUT;
+
 use InvalidArgumentException;
+
 use const NIL;
 use const PHP_MAJOR_VERSION;
+
 use PhpImap\Exceptions\ConnectionException;
+
 use const SE_FREE;
 use const SORTARRIVAL;
 use const SORTCC;
@@ -24,6 +28,7 @@ use const SORTFROM;
 use const SORTSIZE;
 use const SORTSUBJECT;
 use const SORTTO;
+
 use stdClass;
 use Throwable;
 use UnexpectedValueException;
@@ -893,6 +898,7 @@ final class Imap
      * @param false|resource $imap_stream
      *
      * @psalm-param value-of<self::SORT_CRITERIA> $criteria
+     *
      * @psalm-suppress InvalidArgument
      *
      * @todo InvalidArgument, although it's correct: Argument 3 of imap_sort expects int, bool provided https://www.php.net/manual/de/function.imap-sort.php
@@ -1083,9 +1089,9 @@ final class Imap
     /**
      * @param false|resource $maybe
      *
-     * @throws InvalidArgumentException if $maybe is not a valid resource
-     *
      * @return resource
+     *
+     * @throws InvalidArgumentException if $maybe is not a valid resource
      *
      * @psalm-pure
      */
@@ -1102,9 +1108,9 @@ final class Imap
     /**
      * @param false|resource $maybe
      *
-     * @throws Exceptions\ConnectionException if $maybe is not a valid resource
-     *
      * @return resource
+     *
+     * @throws Exceptions\ConnectionException if $maybe is not a valid resource
      */
     private static function EnsureConnection($maybe, string $method, int $argument)
     {

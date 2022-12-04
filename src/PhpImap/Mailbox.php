@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace PhpImap;
 
 use const CL_EXPUNGE;
+
 use function count;
+
 use const CP_UID;
 use const DATE_RFC3339;
+
 use DateTime;
+
 use const DIRECTORY_SEPARATOR;
+
 use Exception;
+
 use const FILEINFO_EXTENSION;
 use const FILEINFO_MIME;
 use const FILEINFO_MIME_ENCODING;
@@ -24,7 +30,9 @@ use const IMAP_CLOSETIMEOUT;
 use const IMAP_OPENTIMEOUT;
 use const IMAP_READTIMEOUT;
 use const IMAP_WRITETIMEOUT;
+
 use InvalidArgumentException;
+
 use const OP_ANONYMOUS;
 use const OP_DEBUG;
 use const OP_HALFOPEN;
@@ -34,18 +42,23 @@ use const OP_SECURE;
 use const OP_SHORTCACHE;
 use const OP_SILENT;
 use const PATHINFO_EXTENSION;
+
 use PhpImap\Exceptions\ConnectionException;
 use PhpImap\Exceptions\InvalidParameterException;
+
 use const SA_ALL;
 use const SE_FREE;
 use const SE_UID;
 use const SORT_NUMERIC;
 use const SORTARRIVAL;
 use const ST_UID;
+
 use stdClass;
+
 use const TYPEMESSAGE;
 use const TYPEMULTIPART;
 use const TYPETEXT;
+
 use UnexpectedValueException;
 
 /**
@@ -54,7 +67,6 @@ use UnexpectedValueException;
  * @author Barbushin Sergey http://linkedin.com/in/barbushin
  *
  * @psalm-type PARTSTRUCTURE_PARAM = object{attribute:string, value?:string}
- *
  * @psalm-type PARTSTRUCTURE = object{
  *  id?:string,
  *  encoding:int|mixed,
@@ -1696,9 +1708,9 @@ class Mailbox
     /**
      * Open an IMAP stream to a mailbox.
      *
-     * @throws Exception if an error occured
-     *
      * @return resource IMAP stream on success
+     *
+     * @throws Exception if an error occured
      */
     protected function initImapStream()
     {
@@ -1722,6 +1734,7 @@ class Mailbox
      * @param string|0 $partNum
      *
      * @psalm-param PARTSTRUCTURE $partStructure
+     *
      * @psalm-suppress InvalidArgument
      *
      * @todo refactor type checking pending resolution of https://github.com/vimeo/psalm/issues/2619
@@ -1783,7 +1796,7 @@ class Mailbox
         // check if the part is a subpart of another attachment part (RFC822)
         if ('RFC822' === $partStructure->subtype && isset($partStructure->disposition) && 'attachment' === $partStructure->disposition) {
             // Although we are downloading each part separately, we are going to download the EML to a single file
-            //incase someone wants to process or parse in another process
+            // incase someone wants to process or parse in another process
             $attachment = self::downloadAttachment($dataInfo, $params, $partStructure, false);
             $mail->addAttachment($attachment);
         }
@@ -1821,7 +1834,7 @@ class Mailbox
                     // https://github.com/barbushin/php-imap/issues/198
                     $this->initMailPart($mail, $subPartStructure, $partNum, $markAsSeen);
                 } elseif ('RFC822' === $partStructure->subtype && isset($partStructure->disposition) && 'attachment' === $partStructure->disposition) {
-                    //If it comes from am EML attachment, download each part separately as a file
+                    // If it comes from am EML attachment, download each part separately as a file
                     $this->initMailPart($mail, $subPartStructure, $partNum.'.'.($subPartNum + 1), $markAsSeen, true);
                 } else {
                     $this->initMailPart($mail, $subPartStructure, $partNum.'.'.($subPartNum + 1), $markAsSeen);

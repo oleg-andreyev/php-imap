@@ -12,6 +12,7 @@ namespace PhpImap;
 
 use Generator;
 use ParagonIE\HiddenString\HiddenString;
+
 use const TYPETEXT;
 
 /**
@@ -51,13 +52,12 @@ class LiveMailboxIssue250Test extends AbstractLiveMailboxTest
                     'contents.data' => 'test',
                 ],
             ],
-            (
+
                 'Subject: '.$random_subject."\r\n".
                 'MIME-Version: 1.0'."\r\n".
                 'Content-Type: TEXT/PLAIN; CHARSET=US-ASCII'."\r\n".
                 "\r\n".
-                'test'."\r\n"
-            ),
+                'test'."\r\n",
         ];
     }
 

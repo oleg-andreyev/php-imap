@@ -9,8 +9,10 @@ declare(strict_types=1);
 namespace PhpImap;
 
 use const CL_EXPUNGE;
+
 use DateTime;
 use Generator;
+
 use const IMAP_CLOSETIMEOUT;
 use const IMAP_OPENTIMEOUT;
 use const IMAP_READTIMEOUT;
@@ -23,8 +25,10 @@ use const OP_READONLY;
 use const OP_SECURE;
 use const OP_SHORTCACHE;
 use const OP_SILENT;
+
 use PhpImap\Exceptions\InvalidParameterException;
 use PHPUnit\Framework\TestCase;
+
 use const SE_FREE;
 use const SE_UID;
 
