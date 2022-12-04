@@ -111,6 +111,7 @@ class Mailbox
             | OP_SILENT // 16
             | OP_PROTOTYPE // 32
             | OP_SECURE // 256
+            | OP_XOAUTH2 // 512
     ;
 
     /** @var string */
